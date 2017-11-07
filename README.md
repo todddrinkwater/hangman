@@ -23,3 +23,5 @@ Things you may want to cover:
 
 * ...
 
+Tuesday 7 Nov
+* No model for game. What is the best approach to creating this?
