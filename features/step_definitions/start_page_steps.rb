@@ -11,5 +11,5 @@ Then(/^I should be asked if I am ready to start$/) do
 end
 
 Then(/^I should see a start game button$/) do
-  expect(page).to have_link("Start Game", new_game_path)
+  expect(page).to have_link("Start Game", href: new_game_path)
 end
