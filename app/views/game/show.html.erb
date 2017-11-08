@@ -1,0 +1,8 @@
+<p><%= @clue %></p>
+<p>Lives remaining: <%= @game.lives_remaining %></p>
+
+<%= form_for @guess, url: game_guess_index_path(@game) do |f| %>
+  <%= f.hidden_field(:game_id, value: params[:id]) %>
+  Make a guess: <%= f.text_field :guess %>
+  <%= f.submit "Make guess" %>
+<% end %>

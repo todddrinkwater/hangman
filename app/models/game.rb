@@ -1,4 +1,4 @@
 class Game < ApplicationRecord
-  #request validation
+  has_many :guess
   validates_presence_of :word, :lives_remaining
 end

@@ -12,4 +12,3 @@ Scenario: User starts a new game
 When I visit the game page
 Then I should be shown the clue
 Then I should see the number of lives I have left
-Then I should should see a labelled input box for making a guess
