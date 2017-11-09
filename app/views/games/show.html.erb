@@ -15,9 +15,9 @@
 </p>
 
 <p>
-  <strong>Guesses:</strong>
+  <strong>Incorrect guesses:</strong>
   <% @guesses.each do |guess| %>
-    <%= guess %>
+    <%= !@game.word.include?(guess) ? guess : nil %>
 <% end %>
 </p>
 
