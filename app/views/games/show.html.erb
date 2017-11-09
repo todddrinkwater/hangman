@@ -1,31 +1,30 @@
 <h1>Game</h1>
 
-<p>
-  <% @guesses = [] %>
-  <% @game.guess.map { |guess| @guesses.push(guess.guess) } %>
-  
-  <strong>Word:</strong>
+<% @guesses = [] %>
+<% @game.guesses.map { |guess| @guesses.push(guess.guess) } %>
 
+<p>
+  <strong>Word:</strong>
   <%= @game.word.chars.map { |letter| @guesses.include?(letter) ? letter : "_" }.join(" ") %>
 </p>
  
 <p>
   <strong>Lives:</strong>
-  <%= @game.lives_remaining %>
+  <%= @game.max_lives %>
 </p>
 
 <p>
   <strong>Incorrect guesses:</strong>
   <% @guesses.each do |guess| %>
-    <%= !@game.word.include?(guess) ? guess : nil %>
-<% end %>
+    <% if !@game.word.include?(guess) %>
+      <%= guess %>
+    <% end %>
+  <% end %>
 </p>
 
-<%- #Should it be @guess, @game, or @game.guesses? -%>
-<%= form_with model: [ @game, @game.guess.build ], local: true do |f| %>
+
+<%= form_with model: [ @game, @game.guesses.build ], local: true do |f| %>
   <%= f.label 'Take a guess:' %>
   <%= f.text_field :guess %>
   <%= f.submit 'Make guess' %>
 <% end %>
-
-<%- # -%>

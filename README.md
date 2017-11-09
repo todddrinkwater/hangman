@@ -40,3 +40,9 @@ Thursday 9 Nov
 * Fix: Create button that will post to a create action, then redirect from create to show. Show template will need to be created to replace index.html.erb.
 * Key learnings:
   * - Creating a hidden_field is form inputs is f.hidden_field(:game_id, value: params[:id]) Where the key is the first arg and the value is the second.
+  
+Friday 10 Nov
+
+#TODO: Type up migration change for max_lives rename ....
+#TODO: Change instances of lives_remaining to max_lives where appropriate
+#TODO: Implement lives_remaining method on model

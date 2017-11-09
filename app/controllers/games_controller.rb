@@ -24,7 +24,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:word, :lives_remaining)
+    params.require(:game).permit(:word, :max_lives)
   end
 end
 

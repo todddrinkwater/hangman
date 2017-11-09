@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-  subject(:game) { described_class.new(word: "powershop", lives_remaining: 7, guesses: []) }
+  subject(:game) { described_class.new(word: "powershop", max_lives: 7, guesses: []) }
   
   context "When starting a new game" do
     it "is valid with valid attributes" do
@@ -12,7 +12,7 @@ RSpec.describe Game, type: :model do
       expect(game).to_not be_valid
     end
     it "is not valid without lives remaining" do
-      game.lives_remaining = nil
+      game.max_lives = nil
       expect(game).to_not be_valid
     end
     it "is not valid without lives remaining" do
