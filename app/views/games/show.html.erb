@@ -1,0 +1,25 @@
+<h1>Game</h1>
+
+<p>
+  <strong>Word:</strong>
+  <%= @game.word %>
+</p>
+ 
+<p>
+  <strong>Lives:</strong>
+  <%= @game.lives_remaining %>
+</p>
+
+<p>
+  <strong>Guesses:</strong>
+  <% @game.guess.each do |guess| %>
+    <%= guess.guess %>
+<% end %>
+</p>
+
+<%- #Should it be @guess, @game, or @game.guesses? -%>
+<%= form_with model: [ @game, @game.guess.build ], local: true do |f| %>
+  <%= f.label 'Take a guess:' %>
+  <%= f.text_field :guess %>
+  <%= f.submit 'Make guess' %>
+<% end %>

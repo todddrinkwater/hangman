@@ -38,3 +38,5 @@ Wednesday 8 Nov
 Thursday 9 Nov
 * Issue: Game controllers index action creates a new game every time we are redirected to that route.
 * Fix: Create button that will post to a create action, then redirect from create to show. Show template will need to be created to replace index.html.erb.
+* Key learnings:
+  * - Creating a hidden_field is form inputs is f.hidden_field(:game_id, value: params[:id]) Where the key is the first arg and the value is the second.
