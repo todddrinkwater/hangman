@@ -1,8 +1,12 @@
 <h1>Game</h1>
 
 <p>
+  <% @guesses = [] %>
+  <% @game.guess.map { |guess| @guesses.push(guess.guess) } %>
+  
   <strong>Word:</strong>
-  <%= @game.word %>
+
+  <%= @game.word.chars.map { |letter| @guesses.include?(letter) ? letter : "_" }.join(" ") %>
 </p>
  
 <p>
@@ -12,8 +16,8 @@
 
 <p>
   <strong>Guesses:</strong>
-  <% @game.guess.each do |guess| %>
-    <%= guess.guess %>
+  <% @guesses.each do |guess| %>
+    <%= guess %>
 <% end %>
 </p>
 
@@ -23,3 +27,5 @@
   <%= f.text_field :guess %>
   <%= f.submit 'Make guess' %>
 <% end %>
+
+<%- # -%>

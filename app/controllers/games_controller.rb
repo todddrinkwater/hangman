@@ -18,11 +18,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    # @guess = Guess.new
     @game = Game.find(params[:id])
-
-    # clue_arr = @game.word.chars.map { |char| char = "_" }
-    # @clue = clue_arr.join(" ")
   end
 
   private
