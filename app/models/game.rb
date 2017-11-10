@@ -9,4 +9,12 @@ class Game < ApplicationRecord
     max_lives - incorrect_guesses.length
   end
 
+  # private
+  #
+  # def is_cool
+  #   unless coolness.present?
+  #     errors[:base] << "Game is not cool."
+  #   end
+  # end
+
 end

@@ -27,6 +27,3 @@ class GamesController < ApplicationController
     params.require(:game).permit(:word, :max_lives)
   end
 end
-
-#Find all guesses with the same game_id as param.
-#Display all guesses made

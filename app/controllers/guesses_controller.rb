@@ -1,14 +1,19 @@
 class GuessesController < ApplicationController
   def show
   end
-  
+
   def create
     game = Game.find(params[:game_id])
-    @guess = game.guesses.create!(guess_params)
+    @guess = game.guesses.new(guess_params)
 
-    redirect_to game_path(game)
+    if @guess.save
+      redirect_to game_path(game)
+    else
+      flash[:notice] = @guess.errors.full_messages
+      redirect_to game_path(game)
+    end
   end
-  
+
   private
 
   def guess_params
