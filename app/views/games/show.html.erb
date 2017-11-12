@@ -24,10 +24,7 @@
 
 <% if notice %>
   <div id="error_explanation">
-    <!-- <h2>
-      <%= pluralize(@game.errors.count, "error") %> prohibited
-      this guess from being made:
-    </h2> -->
+    <h4>Uh oh!</h4>
     <ul>
       <% notice.each do |msg| %>
         <li><%= msg %></li>

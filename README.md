@@ -43,6 +43,6 @@ Thursday 9 Nov
   
 Friday 10 Nov
 
-#TODO: Type up migration change for max_lives rename ....
-#TODO: Change instances of lives_remaining to max_lives where appropriate
-#TODO: Implement lives_remaining method on model
+* To review:
+* What are flash messages and how and they used with things like validation?
+* Validating via custom methods
