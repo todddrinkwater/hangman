@@ -1,41 +1,12 @@
 <h1>Game</h1>
 
-<% @guesses = [] %>
-<% @game.guesses.map { |guess| @guesses.push(guess.guess) } %>
-
-<p>
-  <strong>Word:</strong>
-  <%= @game.word.chars.map { |letter| @guesses.include?(letter) ? letter : "_" }.join(" ") %>
-</p>
- 
-<p>
-  <strong>Lives:</strong>
-  <%= @game.lives_remaining %>
-</p>
-
-<p>
-  <strong>Incorrect guesses:</strong>
-  <% @guesses.each do |guess| %>
-    <% if !@game.word.include?(guess) %>
-      <%= guess %>
-    <% end %>
-  <% end %>
-</p>
-
-<% if notice %>
-  <div id="error_explanation">
-    <h4>Uh oh!</h4>
-    <ul>
-      <% notice.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
+<% if @game.lives_remaining < 1 %>
+  <p>GAME OVER</p>
+  <p>Your word was... <%= @game.word %> </p>
+<% elsif @game.won? %>
+  <%= @game.word %>
+  <p>YOU WIN!</p>
+<% else %>
+  <%= render 'active_game' %>
 <% end %>
-
-
-<%= form_with model: [ @game, @game.guesses.build ], local: true do |f| %>
-  <%= f.label 'Take a guess:' %>
-  <%= f.text_field :guess %>
-  <%= f.submit 'Make guess' %>
-<% end %>
+  

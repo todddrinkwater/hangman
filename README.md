@@ -46,3 +46,4 @@ Friday 10 Nov
 * To review:
 * What are flash messages and how and they used with things like validation?
 * Validating via custom methods
+*
