@@ -1,6 +1,6 @@
 <h1>Game</h1>
 
-<% if @game.lives_remaining < 1 %>
+<% if @game.lost? %>
   <p>GAME OVER</p>
   <p>Your word was... <%= @game.word %></p>
   <p>Play again?</p>

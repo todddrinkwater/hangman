@@ -12,9 +12,12 @@ class Game < ApplicationRecord
   end
   
   def won?
-    # Compare guess word against guesses made
     letters_remaining = word.chars - guesses.pluck(:guess)
     letters_remaining.length < 1
+  end
+  
+  def lost?
+    lives_remaining < 1
   end
 
   # private
