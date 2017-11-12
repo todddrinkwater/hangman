@@ -28,9 +28,9 @@ RSpec.describe Guess, type: :model do
 
       expect(game).to_not be_valid
     end
-    
+
     #NOTE: Should I remove the upcase method from all controllers?
-    
+
     # it "should match upper and lower case letters against word" do
     #   game.guesses.create(guess: "p")
     #
