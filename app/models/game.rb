@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   has_many :guesses, dependent: :destroy
   validates_presence_of :word, :max_lives
+  validates :max_lives, numericality: { only_integer: true }
 
   def lives_remaining
     target_characters = word.chars.uniq
