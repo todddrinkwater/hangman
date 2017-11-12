@@ -11,9 +11,13 @@ class Game < ApplicationRecord
     max_lives - incorrect_guesses.length
   end
   
-  def won?
+  def letters_remaining
     letters_remaining = word.chars - guesses.pluck(:guess)
-    letters_remaining.length < 1
+    letters_remaining.length
+  end
+  
+  def won?
+    letters_remaining < 1
   end
   
   def lost?
