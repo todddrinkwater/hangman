@@ -42,11 +42,15 @@ Thursday 9 Nov
   * - Creating a hidden_field is form inputs is f.hidden_field(:game_id, value: params[:id]) Where the key is the first arg and the value is the second.
   
 Friday 10 Nov
-
 * To review:
 * What are flash messages and how and they used with things like validation?
 * Validating via custom methods
 
 Monday 13 Nov
-
-
+* Use present tense/active voice when writing assertions for cucumbers.
+* Remember scoping changes depending on the environment you are working with.
+* Research call method.
+* Start new game should be separate feature.
+* Player is more specific then user when writing tests.
+* Be more specific with what I'm testing, don't worry about the other small stuff as much. Focus on the key issues.
+* Be clear with naming intent for what the user is doing.

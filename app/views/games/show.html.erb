@@ -1,5 +1,6 @@
 <h1>Game</h1>
 
+<% #Have game model calc game state and return symbol representing state of game. %>
 <% if @game.lost? %>
   <p>GAME OVER</p>
   <p>Your word was... <%= @game.word %></p>

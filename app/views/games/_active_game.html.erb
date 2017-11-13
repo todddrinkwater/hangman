@@ -5,7 +5,7 @@
   <strong>Word:</strong>
   <%= @game.word.chars.map { |letter| @guesses.include?(letter) ? letter : "_" }.join(" ") %>
 </p>
- 
+
 <p>
   <strong>Lives:</strong>
   <%= @game.lives_remaining %>
@@ -31,9 +31,8 @@
   </div>
 <% end %>
 
-
-<%= form_with model: [ @game, @game.guesses.build ], local: true do |f| %>
+<%= form_with model: [ @game, @game.guesses.build ], id: "guess", local: true do |f| %>
   <%= f.label 'Take a guess:' %>
-  <%= f.text_field :guess %>
+  <%= f.text_field :guess, id: 'guess_input' %>
   <%= f.submit 'Make guess' %>
 <% end %>

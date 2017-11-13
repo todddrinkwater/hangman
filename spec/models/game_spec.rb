@@ -1,4 +1,7 @@
 require 'rails_helper'
+#TODO: Try to switch create's to new's and get it to pass.
+#TODO: Add describe blocks to separate code into appropriate areas.
+#TODO: Add hashes/.'s where appropriate in describing methods.
 
 RSpec.describe Game, type: :model do
   subject(:game) { described_class.create(word: "powershop", max_lives: 7) }
@@ -46,9 +49,8 @@ RSpec.describe Game, type: :model do
 
     it "calculates number of letters left to guess" do
       game.guesses.create(guess: "p")
-      game.guesses.create(guess: "o")
 
-      expect(game.letters_remaining).to eq 5
+      expect(game.letters_remaining).to eq 7
     end
 
     it "should not be won when all letters have not been guessed" do
