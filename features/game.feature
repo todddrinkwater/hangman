@@ -10,8 +10,6 @@ Feature: Game
   I want the player to be informed when they have won.
   I want the player to be informed when they have lost and be shown the guess word.
 
-#TODO: Be clear with naming intent for what the player is doing.
-
 Background:
   Given the player is on the game page
 

@@ -1,11 +1,9 @@
 require 'rails_helper'
 #TODO: Try to switch create's to new's and get it to pass.
-#TODO: Add describe blocks to separate code into appropriate areas.
-#TODO: Add hashes/.'s where appropriate in describing methods.
 
 RSpec.describe Game, type: :model do
   subject(:game) { described_class.create(word: "powershop", max_lives: 7) }
-  
+
   context "validations" do
     subject(:game) { described_class.new(word: word , max_lives: max_lives)}
 
@@ -60,9 +58,6 @@ RSpec.describe Game, type: :model do
   end
 
   describe "#lives_remaining" do
-    # subject(:guess) { game.guesses.create(guess) }
-    # let(:guess) {}
-
     let(:make_guess) { game.guesses.create!(guess: guess) }
 
     before do
@@ -130,7 +125,7 @@ RSpec.describe Game, type: :model do
       end
     end
   end
-  
+
   describe "#incorrect_guesses" do
     let(:make_guess) { game.guesses.create!(guess: guess) }
 
@@ -166,7 +161,7 @@ RSpec.describe Game, type: :model do
 
   describe "#won?" do
     let(:make_guess) { game.guesses }
-  
+
     context "when the user makes a winning guess" do
       guesses = ["p", "o", "w", "e", "r", "s", "h"]
 
@@ -175,7 +170,7 @@ RSpec.describe Game, type: :model do
         expect(game).to be_won
       end
     end
-    
+
     context "when all letters have not yet been guessed" do
       guesses = ["p", "o", "w", "e", "r", "s"]
 

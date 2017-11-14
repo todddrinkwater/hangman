@@ -1,40 +1,58 @@
 require 'rails_helper'
 
 RSpec.describe Guess, type: :model do
-  subject(:game) { Game.create(word: "powershop", max_lives: 7) }
+  subject(:game) { Game.create(word: word, max_lives: max_lives) }
 
-  context "When making a guess" do
-    it "only accepts one character as input" do
-      game.guesses.create(guess: "aa")
+  let(:word) { "powershop" }
+  let(:max_lives) { 7 }
 
-      expect(game).to_not be_valid
+  context "validations" do
+    subject(:make_guess) { game.guesses.create(guess: guess) }
+
+    context "when given valid parameters" do
+      let(:guess) { "p" }
+
+      it "is valid" do
+        expect(make_guess).to be_valid
+      end
     end
 
-    it "does not accept empty input" do
-      game.guesses.create(guess: "")
+    context "when given invalid parameters" do
+      context "when given a number" do
+        let(:guess) { 7 }
 
-      expect(game).to_not be_valid
+        it "is invalid" do
+          expect(make_guess).to_not be_valid
+        end
+      end
+
+      context "when given more than one letter" do
+        let(:guess) { "aa" }
+
+        it "is invalid" do
+          expect(make_guess).to_not be_valid
+        end
+      end
+
+      context "when the guess contains zero characters" do
+        let(:guess) { "" }
+
+        it "is invalid" do
+          expect(make_guess).to_not be_valid
+        end
+      end
+
+      context "when the guess has already been made" do
+        let(:guess) { "a" }
+
+        before do
+          make_guess
+        end
+
+        it "is invalid" do
+          expect(game.guesses.new(guess: "a")).to_not be_valid
+        end
+      end
     end
-
-    it "does not accept integers as input" do
-      game.guesses.create(guess: "7")
-
-      expect(game).to_not be_valid
-    end
-
-    it "does not accept guesses that have already been made" do
-      game.guesses.create(guess: "a")
-      game.guesses.create(guess: "a")
-
-      expect(game).to_not be_valid
-    end
-
-    #NOTE: Should I remove the upcase method from all controllers?
-
-    # it "should match upper and lower case letters against word" do
-    #   game.guesses.create(guess: "p")
-    #
-    #   expect(game.letters_remaining).to eq 7
-    # end
   end
 end
