@@ -5,74 +5,203 @@ require 'rails_helper'
 
 RSpec.describe Game, type: :model do
   subject(:game) { described_class.create(word: "powershop", max_lives: 7) }
+  
+  context "validations" do
+    subject(:game) { described_class.new(word: word , max_lives: max_lives)}
 
-  context "When starting a new game" do
-    it "is valid with valid attributes" do
+    let(:word) { "powershop" }
+    let(:max_lives) { 7 }
+
+    it "is valid" do
       expect(game).to be_valid
     end
 
-    it "is not valid without a word" do
-      game.word = nil
+    context "invalid parameters" do
+      context "without a word" do
+        let(:word) { nil }
 
-      expect(game).to_not be_valid
-    end
+        it "is invalid" do
+          expect(game).to_not be_valid
+        end
+      end
 
-    it "is not valid without max lives" do
-      game.max_lives = nil
+      context "when the word contains non-alphabetical characters" do
+        let(:word) { "p0wershop" }
 
-      expect(game).to_not be_valid
-    end
+        it "is invalid" do
+          expect(game).to_not be_valid
+        end
+      end
 
-    it "only allows integers as input for max lives" do
-      game.max_lives = "g"
+      context "when word contains no characters" do
+        let(:word) { "" }
 
-      expect(game).to_not be_valid
-    end
+        it "is invalid" do
+          expect(game).to_not be_valid
+        end
+      end
 
-    it "only allows letters as input for the guess word" do
-      game.word = "p0wershop"
+      context "when max lives is not provided" do
+        let(:max_lives) { nil }
 
-      expect(game).to_not be_valid
+        it "is invalid" do
+          expect(game).to_not be_valid
+        end
+      end
+
+      context "when max lives contains non_numeric characters" do
+        let(:max_lives) { "a" }
+
+        it "is invalid" do
+          expect(game).to_not be_valid
+        end
+      end
     end
   end
 
-  context "When the game is active" do
-    it "displays the max number of lives available upon start" do
-      expect(game.lives_remaining).to eq 7
+  describe "#lives_remaining" do
+    # subject(:guess) { game.guesses.create(guess) }
+    # let(:guess) {}
+
+    let(:make_guess) { game.guesses.create!(guess: guess) }
+
+    before do
+      make_guess
     end
 
-    it "deducts 1 life per incorrect guess" do
-      game.guesses.create(guess: "x")
+    context "when player makes a correct guess" do
+      let(:guess) { "p" }
 
-      expect(game.lives_remaining).to eq 6
+      it "does not deduct a life" do
+        expect(game.lives_remaining).to eq 7
+      end
     end
 
-    it "calculates number of letters left to guess" do
-      game.guesses.create(guess: "p")
+    context "when player makes an incorrect guess" do
+      let(:guess) { "x" }
 
-      expect(game.letters_remaining).to eq 7
+      it "deducts one life" do
+        expect(game.lives_remaining).to eq 6
+      end
     end
 
-    it "should not be won when all letters have not been guessed" do
-      expect(game).to_not be_won
+    context "when player makes a duplicate guess" do
+      let(:guess) { "x" }
+
+      before do
+        2.times { make_guess }
+      end
+
+      it "does not deduct a life" do
+        expect(game.lives_remaining).to eq 6
+      end
+    end
+  end
+
+  describe "#letters_remaining" do
+    let(:make_guess) { game.guesses.create!(guess: guess) }
+
+    before do
+      make_guess
     end
 
-    it "be won once all letters have been guessed" do
+    context "when player makes a correct guess" do
+      let(:guess) { "p" }
+
+      it "deducts the correct amount of letters" do
+        expect(game.letters_remaining).to eq 7
+      end
+    end
+
+    context "when a player makes in incorrect guess" do
+      let(:guess) { "x" }
+
+      it "does not change the number of letters remaining" do
+        expect{ :make_guess }.not_to change { game.letters_remaining }
+      end
+    end
+
+    context "when a player makes a duplicate guess" do
+      let(:guess) { "w" }
+      let(:guess) { "w" }
+
+      it "deducts the correct amount of letters" do
+        expect(game.letters_remaining).to eq 8
+      end
+    end
+  end
+  
+  describe "#incorrect_guesses" do
+    let(:make_guess) { game.guesses.create!(guess: guess) }
+
+    before do
+      make_guess
+    end
+
+    context "when making an incorrect guess" do
+      let(:guess) { "x" }
+
+      it "returns the guess in the list of incorrect guesses" do
+        expect(game.incorrect_guesses).to eq ["X"]
+      end
+    end
+
+    context "when making a correct guess" do
+      let(:guess) { "p" }
+
+      it "does not add the guess to the list of incorrect guesses" do
+        expect(game.incorrect_guesses).to eq []
+      end
+    end
+
+    context "when making a duplicate incorrect guess" do
+      let(:guess) { "x" }
+      let(:guess) { "x" }
+
+      it "only the original guess is added to the incorrect guesses list" do
+        expect(game.incorrect_guesses).to eq ["X"]
+      end
+    end
+  end
+
+  describe "#won?" do
+    let(:make_guess) { game.guesses }
+  
+    context "when the user makes a winning guess" do
       guesses = ["p", "o", "w", "e", "r", "s", "h"]
-      guesses.each { |g| game.guesses.create(guess: g) }
 
-      expect(game).to be_won
+      it "identifies that the game has been won" do
+        guesses.each { |g| make_guess.create(guess: g) }
+        expect(game).to be_won
+      end
+    end
+    
+    context "when all letters have not yet been guessed" do
+      guesses = ["p", "o", "w", "e", "r", "s"]
+
+      it "identifies that the game has been won" do
+        guesses.each { |g| make_guess.create(guess: g) }
+        expect(game).to_not be_won
+      end
+    end
+  end
+
+  describe "#lost?" do
+    let(:make_guess) { game.guesses }
+
+    context "when player has more than 1 life remaining" do
+      it "is not lost" do
+        expect(game).to_not be_lost
+      end
     end
 
-    it "should not be lost if lives are still remaining" do
-      expect(game).to_not be_lost
-    end
+    context "when player has no lives remaining" do
+      guesses = %w[m n b v c x z]
 
-    it "is lost when no lives are remaining" do
-      guesses = ["q", "t", "y", "u", "i", "a", "d", "f", "g"]
-      guesses.each { |g| game.guesses.create(guess: g) }
-
-      expect(game).to be_lost
+      it "is lost" do
+        guesses.each { |g| make_guess.create(guess: g) }
+        expect(game).to be_lost
+      end
     end
   end
 end

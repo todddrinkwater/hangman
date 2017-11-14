@@ -6,21 +6,19 @@ class Game < ApplicationRecord
   before_save :make_uppercase!
 
   def lives_remaining
-    incorrect_guesses
-
     max_lives - incorrect_guesses.length
-  end
-  
-  def incorrect_guesses
-    target_characters = word.chars.uniq
-    
-    incorrect_guesses = guesses.pluck(:guess) - target_characters
   end
 
   def letters_remaining
     letters_remaining = word.chars - guesses.pluck(:guess)
 
     letters_remaining.length
+  end
+  
+  def incorrect_guesses
+    target_characters = word.chars.uniq
+
+    incorrect_guesses = guesses.pluck(:guess) - target_characters
   end
 
   def won?
@@ -30,9 +28,9 @@ class Game < ApplicationRecord
   def lost?
     lives_remaining < 1
   end
-  
+
   private
-  
+
   def make_uppercase!
     self.word.upcase!
   end

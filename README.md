@@ -54,3 +54,8 @@ Monday 13 Nov
 * Player is more specific then user when writing tests.
 * Be more specific with what I'm testing, don't worry about the other small stuff as much. Focus on the key issues.
 * Be clear with naming intent for what the user is doing.
+
+Tuesday 14 Nov
+* Use before_save :my_method to perform work on values before saving to DB.
+* Testing: Add describe blocks to separate code into appropriate areas, and test based on vars and methods.
+* Testing: #'s describe instance methods, .'s describe class methods

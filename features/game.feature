@@ -24,7 +24,7 @@ Scenario: Player makes a correct guess
   When I submit a correct guess
   Then the clue displays the correctly guessed letters
   Then I see the number of lives remaining is unchanged
-  
+
 Scenario: Player makes an incorrect guess
   Given I make an incorrect guess
   When I submit an incorrect guess
@@ -34,12 +34,12 @@ Scenario: Player makes an incorrect guess
 Scenario: Player guesses a letter that has already been guessed
   When I submit a duplicate guess
   Then I see an appropriate error message
-  
+
 Scenario: Player makes guess that wins a game
   When I submit the winning guess
   Then I see a game won message
   Then I should see a link for playing a new game
-  
+
 Scenario: Player makes guess that loses a game
   When When I submit the winning guess
   Then I see a game lost message
