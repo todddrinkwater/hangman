@@ -40,6 +40,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'rails-controller-testing', '~> 0.0.3'
 end
 
 group :development do
