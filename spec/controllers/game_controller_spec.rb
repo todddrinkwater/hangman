@@ -2,30 +2,34 @@ require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
   describe "GET index" do
-    it "renders index template" do
-      get :index
+    context "when the game is first opened" do
+      it "renders index template" do
+        get :index
 
-      expect(response).to render_template("index")
-    end
+        expect(response).to render_template("index")
+      end
 
-    it "has a status code of 200" do
-      get :index
+      it "has a status code of 200" do
+        get :index
 
-      expect(response.status).to eq(200)
+        expect(response.status).to eq(200)
+      end
     end
   end
 
   describe "GET new" do
-    it "assigns @game" do
-      game = Game.create
-      get :new
+    context "when player sets up a new game" do
+      it "assigns @game" do
+        game = Game.create
+        get :new
 
-      expect(assigns(:game)).to be_a_new(Game)
+        expect(assigns(:game)).to be_a_new(Game)
+      end
     end
   end
 
   describe "#create" do
-    context "when a user creates a new game" do
+    context "when a player creates a new game" do
       context "with valid params" do
         before do
           post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } }
@@ -35,6 +39,10 @@ RSpec.describe GamesController, type: :controller do
           id = Game.order(:id => :desc).first.id
 
           expect(response).to redirect_to(game_path(id))
+        end
+
+        it "returns a 302 status code" do
+          expect(response.status).to eq(302)
         end
       end
 
@@ -51,13 +59,17 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "#show" do
-    context "user has created a new game" do
+    context "player has created a new game" do
       before do
         get :show, :params => { :id => Game.first }
       end
 
       it "renders the show template" do
         expect(response).to render_template('show')
+      end
+
+      it "returns a 200 status code" do
+        expect(response.status).to eq(200)
       end
     end
   end

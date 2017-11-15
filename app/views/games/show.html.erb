@@ -2,15 +2,9 @@
 
 <% #Place lost/won displays into partials. %>
 <% if @game.lost? %>
-  <p>GAME OVER</p>
-  <p>Your word was... <%= @game.word %></p>
-  <p>Play again?</p>
-  <%= link_to 'New Game', new_game_path %>
+  <%= render 'game_lost' %>
 <% elsif @game.won? %>
-  <%= @game.word %>
-  <p>YOU WIN!</p>
-  <p>Play again?</p>
-  <%= link_to 'New Game', new_game_path %>
+  <%= render 'game_won' %>
 <% else %>
   <%= render 'active_game' %>
 <% end %>
