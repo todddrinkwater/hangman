@@ -5,7 +5,7 @@ RSpec.describe Game, type: :model do
   subject(:game) { described_class.create(word: "powershop", max_lives: 7) }
 
   context "validations" do
-    subject(:game) { described_class.new(word: word , max_lives: max_lives)}
+    subject(:game) { described_class.new(word: word, max_lives: max_lives) }
 
     let(:word) { "powershop" }
     let(:max_lives) { 7 }

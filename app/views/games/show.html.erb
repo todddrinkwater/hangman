@@ -1,11 +1,9 @@
 <h1>Game</h1>
 
-<% #Place lost/won displays into partials. %>
 <% if @game.lost? %>
-  <%= render 'game_lost' %>
+  <%= render 'lost_game' %>
 <% elsif @game.won? %>
-  <%= render 'game_won' %>
+  <%= render 'won_game' %>
 <% else %>
   <%= render 'active_game' %>
 <% end %>
-  
