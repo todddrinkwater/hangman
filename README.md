@@ -1,27 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Tests
+* Front End - UI tests with Cucumber / Capybara's
+* Controllers - Response status codes, template rendering
+* Models - Game logic and validation
 
-Things you may want to cover:
+* Have I tested - ...
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Reflection
 
 Tuesday 7 Nov
 * No model for game. What is the best approach to creating this?
@@ -59,3 +45,7 @@ Tuesday 14 Nov
 * Use before_save :my_method to perform work on values before saving to DB.
 * Testing: Add describe blocks to separate code into appropriate areas, and test based on vars and methods.
 * Testing: #'s describe instance methods, .'s describe class methods
+
+Wednesday 15 Nov
+* Avoid writing tests that only end up testing the Rails framework. Routes specs tend to do this. Only test the things that you change.
+* Review: Pluck

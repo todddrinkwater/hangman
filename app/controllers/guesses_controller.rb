@@ -4,10 +4,10 @@ class GuessesController < ApplicationController
 
   def create
     game = Game.find(params[:game_id])
-    guess = game.guesses.new(guess_params)
-    guess.guess.upcase!
+    new_guess = game.guesses.new(guess_params)
+    new_guess.guess.upcase!
 
-    if guess.save
+    if new_guess.save
       redirect_to game_path(game)
     else
       flash[:notice] = guess.errors.full_messages
