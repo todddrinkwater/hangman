@@ -10,7 +10,7 @@ RSpec.describe Guess, type: :model do
     subject(:make_guess) { game.guesses.create(guess: guess) }
 
     context "when given valid parameters" do
-      let(:guess) { "p" }
+      let(:guess) { "P" }
 
       it "is valid" do
         expect(make_guess).to be_valid

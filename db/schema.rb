@@ -13,21 +13,18 @@
 ActiveRecord::Schema.define(version: 20171108012439) do
 
   create_table "games", force: :cascade do |t|
-    t.string "word"
-    t.integer "max_lives"
+    t.string "word", null: false
+    t.integer "max_lives", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "guesses", force: :cascade do |t|
-    t.string "guess"
-    t.integer "game_id"
+    t.string "guess", null: false
+    t.integer "game_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_guesses_on_game_id"
   end
 
 end
-
-#TODO: Add not null constraints to attributes I need to be present.
-#TODO: Add not null contraints to FK's.
