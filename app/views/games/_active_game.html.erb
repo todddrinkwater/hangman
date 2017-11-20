@@ -1,9 +1,6 @@
-<% @guesses = [] %>
-<% @game.guesses.map { |guess| @guesses.push(guess.guess) } %>
-
 <p>
   <strong>Word:</strong>
-  <%= @game.word.chars.map { |letter| @guesses.include?(letter) ? letter : "_" }.join(" ") %>
+  <%= @game.clue %>
 </p>
 
 <p>
@@ -13,11 +10,7 @@
 
 <p>
   <strong>Incorrect guesses:</strong>
-  <% @guesses.each do |guess| %>
-    <% if !@game.word.include?(guess) %>
-      <%= guess %>
-    <% end %>
-  <% end %>
+  <%= @game.incorrect_guesses.join(" ") %>
 </p>
 
 <% if notice %>
@@ -36,3 +29,6 @@
   <%= f.text_field :guess, id: 'guess_input' %>
   <%= f.submit 'Make guess' %>
 <% end %>
+
+<% #TODO: form_for, pass in object e.g. @guess, in controller have new and create action. %>
+<% #TODO: Can be created with rails g scaffold %>

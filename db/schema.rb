@@ -28,3 +28,6 @@ ActiveRecord::Schema.define(version: 20171108012439) do
   end
 
 end
+
+#TODO: Add not null constraints to attributes I need to be present.
+#TODO: Add not null contraints to FK's.
