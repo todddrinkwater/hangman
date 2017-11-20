@@ -14,7 +14,7 @@ class Game < ApplicationRecord
 
     letters_remaining.length
   end
-  
+
   def incorrect_guesses
     characters_to_guess = word.chars.uniq
 
@@ -35,7 +35,7 @@ class Game < ApplicationRecord
 
   def clue
     clue = word.chars.map { |letter| guesses_made.include?(letter) ? letter : "_" }
-    
+
     clue.join(" ")
   end
 
