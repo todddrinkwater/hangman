@@ -39,5 +39,5 @@ Scenario: Player makes guess that wins a game
   Then I should see a link for playing a new game
 
 Scenario: Player makes guess that loses a game
-  When When I submit the winning guess
+  When I submit the losing guess
   Then I see a game lost message

@@ -49,3 +49,20 @@ Tuesday 14 Nov
 Wednesday 15 Nov
 * Avoid writing tests that only end up testing the Rails framework. Routes specs tend to do this. Only test the things that you change.
 * Review: Pluck
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

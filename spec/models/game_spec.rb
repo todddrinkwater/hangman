@@ -65,7 +65,7 @@ RSpec.describe Game, type: :model do
     end
 
     context "when player makes a correct guess" do
-      let(:guess) { "p" }
+      let(:guess) { "P" }
 
       it "does not deduct a life" do
         expect(game.lives_remaining).to eq 7
@@ -73,7 +73,7 @@ RSpec.describe Game, type: :model do
     end
 
     context "when player makes an incorrect guess" do
-      let(:guess) { "x" }
+      let(:guess) { "X" }
 
       it "deducts one life" do
         expect(game.lives_remaining).to eq 6
@@ -81,7 +81,7 @@ RSpec.describe Game, type: :model do
     end
 
     context "when player makes a duplicate guess" do
-      let(:guess) { "x" }
+      let(:guess) { "X" }
 
       before do
         2.times { make_guess }
@@ -101,7 +101,7 @@ RSpec.describe Game, type: :model do
     end
 
     context "when player makes a correct guess" do
-      let(:guess) { "p" }
+      let(:guess) { "P" }
 
       it "deducts the correct amount of letters" do
         expect(game.letters_remaining).to eq 7
@@ -109,7 +109,7 @@ RSpec.describe Game, type: :model do
     end
 
     context "when a player makes in incorrect guess" do
-      let(:guess) { "x" }
+      let(:guess) { "X" }
 
       it "does not change the number of letters remaining" do
         expect{ :make_guess }.not_to change { game.letters_remaining }
@@ -117,8 +117,8 @@ RSpec.describe Game, type: :model do
     end
 
     context "when a player makes a duplicate guess" do
-      let(:guess) { "w" }
-      let(:guess) { "w" }
+      let(:guess) { "W" }
+      let(:guess) { "W" }
 
       it "deducts the correct amount of letters" do
         expect(game.letters_remaining).to eq 8
@@ -134,7 +134,7 @@ RSpec.describe Game, type: :model do
     end
 
     context "when making an incorrect guess" do
-      let(:guess) { "x" }
+      let(:guess) { "X" }
 
       it "returns the guess in the list of incorrect guesses" do
         expect(game.incorrect_guesses).to eq ["X"]
@@ -142,7 +142,7 @@ RSpec.describe Game, type: :model do
     end
 
     context "when making a correct guess" do
-      let(:guess) { "p" }
+      let(:guess) { "P" }
 
       it "does not add the guess to the list of incorrect guesses" do
         expect(game.incorrect_guesses).to eq []
@@ -150,8 +150,8 @@ RSpec.describe Game, type: :model do
     end
 
     context "when making a duplicate incorrect guess" do
-      let(:guess) { "x" }
-      let(:guess) { "x" }
+      let(:guess) { "X" }
+      let(:guess) { "X" }
 
       it "only the original guess is added to the incorrect guesses list" do
         expect(game.incorrect_guesses).to eq ["X"]
@@ -163,7 +163,7 @@ RSpec.describe Game, type: :model do
     let(:make_guess) { game.guesses }
 
     context "when the user makes a winning guess" do
-      guesses = ["p", "o", "w", "e", "r", "s", "h"]
+      guesses = ["P", "O", "W", "E", "R", "S", "H"]
 
       it "identifies that the game has been won" do
         guesses.each { |g| make_guess.create(guess: g) }
@@ -172,7 +172,7 @@ RSpec.describe Game, type: :model do
     end
 
     context "when all letters have not yet been guessed" do
-      guesses = ["p", "o", "w", "e", "r", "s"]
+      guesses = ["P", "O", "W", "E", "R", "S"]
 
       it "identifies that the game has been won" do
         guesses.each { |g| make_guess.create(guess: g) }
@@ -191,7 +191,7 @@ RSpec.describe Game, type: :model do
     end
 
     context "when player has no lives remaining" do
-      guesses = %w[m n b v c x z]
+      guesses = %w[M N B V C X Z]
 
       it "is lost" do
         guesses.each { |g| make_guess.create(guess: g) }
