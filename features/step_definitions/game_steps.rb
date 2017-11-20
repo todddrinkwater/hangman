@@ -82,5 +82,5 @@ When(/^I submit the losing guess$/) do
 end
 
 Then(/^I see a game lost message$/) do
-  expect(page).to have_content("GAME OVER Your word was... CAT Play again?")
+  expect(page).to have_content("GAME OVER Your word was... POWERSHOP Play again?")
 end

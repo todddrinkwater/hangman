@@ -18,6 +18,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @guess = @game.guesses.build
   end
 
   private

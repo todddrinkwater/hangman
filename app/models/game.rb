@@ -14,11 +14,11 @@ class Game < ApplicationRecord
 
     letters_remaining.length
   end
-  
-  def incorrect_guesses
-    target_characters = word.chars.uniq
 
-    incorrect_guesses = guesses.pluck(:guess) - target_characters
+  def incorrect_guesses
+    characters_to_guess = word.chars.uniq
+
+    incorrect_guesses = guesses_made - characters_to_guess
   end
 
   def won?
@@ -27,6 +27,16 @@ class Game < ApplicationRecord
 
   def lost?
     lives_remaining < 1
+  end
+
+  def guesses_made
+    guesses.pluck(:guess)
+  end
+
+  def clue
+    clue = word.chars.map { |letter| guesses_made.include?(letter) ? letter : "_" }
+
+    clue.join(" ")
   end
 
   private

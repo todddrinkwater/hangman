@@ -55,7 +55,7 @@ RSpec.describe GamesController, type: :controller do
           expect(response).to render_template('new')
         end
       end
-    end
+    end 
   end
 
   describe "#show" do

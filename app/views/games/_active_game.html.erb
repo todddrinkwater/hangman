@@ -1,9 +1,6 @@
-<% @guesses = [] %>
-<% @game.guesses.map { |guess| @guesses.push(guess.guess) } %>
-
 <p>
   <strong>Word:</strong>
-  <%= @game.word.chars.map { |letter| @guesses.include?(letter) ? letter : "_" }.join(" ") %>
+  <%= @game.clue %>
 </p>
 
 <p>
@@ -13,26 +10,26 @@
 
 <p>
   <strong>Incorrect guesses:</strong>
-  <% @guesses.each do |guess| %>
-    <% if !@game.word.include?(guess) %>
-      <%= guess %>
-    <% end %>
-  <% end %>
+  <%= @game.incorrect_guesses.join(" ") %>
 </p>
 
-<% if notice %>
+<%= form_with model: [ @game, @guess ], id: "guess", local: true do |f| %>
+  <%= f.label 'Take a guess:' %>
+  
+  <div>
+  <%= f.text_field :guess, id: 'guess_input' %>
+
+  <% unless @guess.errors.empty? %>
   <div id="error_explanation">
     <h4>Uh oh!</h4>
     <ul>
-      <% notice.each do |msg| %>
-        <li><%= msg %></li>
+      <% @guess.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
       <% end %>
     </ul>
   </div>
-<% end %>
+  <% end %>
+</div>
 
-<%= form_with model: [ @game, @game.guesses.build ], id: "guess", local: true do |f| %>
-  <%= f.label 'Take a guess:' %>
-  <%= f.text_field :guess, id: 'guess_input' %>
   <%= f.submit 'Make guess' %>
 <% end %>
