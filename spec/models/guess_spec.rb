@@ -7,7 +7,7 @@ RSpec.describe Guess, type: :model do
   let(:max_lives) { 7 }
 
   context "validations" do
-    subject(:make_guess) { game.guesses.create(guess: guess) }
+    subject(:make_guess) { game.guesses.create(value: guess) }
 
     context "when given valid parameters" do
       let(:guess) { "P" }
@@ -50,7 +50,7 @@ RSpec.describe Guess, type: :model do
         end
 
         it "is invalid" do
-          expect(game.guesses.new(guess: "a")).to_not be_valid
+          expect(game.guesses.new(value: "a")).to_not be_valid
         end
       end
     end

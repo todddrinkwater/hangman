@@ -10,7 +10,7 @@ class Game < ApplicationRecord
   end
 
   def letters_remaining
-    letters_remaining = word.chars - guesses.pluck(:guess)
+    letters_remaining = word.chars - guesses.pluck(:value)
 
     letters_remaining.length
   end

@@ -14,13 +14,13 @@ RSpec.describe GuessesController, type: :controller do
     end
   end
 
-  describe "POST #create" do
+  describe "POST create" do
     let(:game) { Game.create!(word: "powershop", max_lives: 7) }
     let(:value) { "P" }
     let(:params) {
       { :game_id => game.id,
-          :guess => { :value => value }
-        }
+        :guess => { :value => value }
+      }
     }
 
     context "when player makes a valid guess" do
@@ -42,7 +42,7 @@ RSpec.describe GuessesController, type: :controller do
 
       it "redirects to the game#show template" do
         post :create, :params => params
-        expect(response).to render_template('games/show')
+        expect(response).to redirect_to(game_path(params[:game_id]))
       end
     end
   end

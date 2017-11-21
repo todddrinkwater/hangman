@@ -6,7 +6,6 @@ class GuessesController < ApplicationController
 
   def create
     @game = Game.find(params[:game_id])
-    # byebug
     @guess = @game.guesses.new(guess_params)
     @guess.value.upcase!
 

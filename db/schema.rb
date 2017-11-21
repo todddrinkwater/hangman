@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 20171108012439) do
 
   create_table "games", force: :cascade do |t|
-    t.string "word", null: false
-    t.integer "max_lives", null: false
+    t.string "word"
+    t.integer "max_lives"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

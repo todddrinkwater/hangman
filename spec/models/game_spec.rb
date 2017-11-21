@@ -58,7 +58,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe "#lives_remaining" do
-    let(:make_guess) { game.guesses.create!(guess: guess) }
+    let(:make_guess) { game.guesses.create!(value: guess) }
     
     before do
       make_guess
@@ -94,7 +94,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe "#letters_remaining" do
-    let(:make_guess) { game.guesses.create!(guess: guess) }
+    let(:make_guess) { game.guesses.create!(value: guess) }
     let(:original_word_length) { game.word.length }
 
     before do
@@ -128,7 +128,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe "#clue" do
-    let(:make_guess) { game.guesses.create!(guess: guess) }
+    let(:make_guess) { game.guesses.create!(value: guess) }
 
     context "when no guesses have been made" do
       it "does not change" do
@@ -155,7 +155,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe "#incorrect_guesses" do
-    let(:make_guess) { game.guesses.create!(guess: guess) }
+    let(:make_guess) { game.guesses.create!(value: guess) }
 
     before do
       make_guess
@@ -194,7 +194,7 @@ RSpec.describe Game, type: :model do
       guesses = ["P", "O", "W", "E", "R", "S", "H"]
 
       it "identifies that the game has been won" do
-        guesses.each { |g| make_guess.create(guess: g) }
+        guesses.each { |g| make_guess.create(value: g) }
         expect(game).to be_won
       end
     end
@@ -203,7 +203,7 @@ RSpec.describe Game, type: :model do
       guesses = ["P", "O", "W", "E", "R", "S"]
 
       it "identifies that the game has been not won" do
-        guesses.each { |g| make_guess.create(guess: g) }
+        guesses.each { |g| make_guess.create(value: g) }
         expect(game).to_not be_won
       end
     end
@@ -222,7 +222,7 @@ RSpec.describe Game, type: :model do
       guesses = %w[M N B V C X Z]
 
       it "is lost" do
-        guesses.each { |g| make_guess.create(guess: g) }
+        guesses.each { |g| make_guess.create(value: g) }
         expect(game).to be_lost
       end
     end
