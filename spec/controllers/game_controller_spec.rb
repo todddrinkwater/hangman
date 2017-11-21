@@ -31,25 +31,24 @@ RSpec.describe GamesController, type: :controller do
   describe "#create" do
     context "when a player creates a new game" do
       context "with valid params" do
-        before do
-          post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } }
-        end
+        let(:create_game) { post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } } }
+
 
         it "redirects to the show path" do
-          post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } }
+          create_game
           id = Game.order(:id => :desc).first.id
 
           expect(response).to redirect_to(game_path(id))
         end
 
         it "returns a 302 status code" do
-          post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } }
+          create_game
           expect(response.status).to eq(302)
         end
 
         it "creates a game" do
           expect {
-            post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } }
+            create_game
            }.to change { Game.count }
         end
       end
