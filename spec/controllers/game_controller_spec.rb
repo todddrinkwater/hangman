@@ -36,13 +36,21 @@ RSpec.describe GamesController, type: :controller do
         end
 
         it "redirects to the show path" do
+          post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } }
           id = Game.order(:id => :desc).first.id
 
           expect(response).to redirect_to(game_path(id))
         end
 
         it "returns a 302 status code" do
+          post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } }
           expect(response.status).to eq(302)
+        end
+
+        it "creates a game" do
+          expect {
+            post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } }
+           }.to change { Game.count }
         end
       end
 
@@ -55,13 +63,14 @@ RSpec.describe GamesController, type: :controller do
           expect(response).to render_template('new')
         end
       end
-    end 
+    end
   end
 
   describe "#show" do
     context "player has created a new game" do
       before do
-        get :show, :params => { :id => Game.first }
+        game = Game.create(word: "powershop", max_lives: 7)
+        get :show, :params => { :id => game.id }
       end
 
       it "renders the show template" do

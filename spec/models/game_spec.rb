@@ -59,7 +59,7 @@ RSpec.describe Game, type: :model do
 
   describe "#lives_remaining" do
     let(:make_guess) { game.guesses.create!(guess: guess) }
-
+    
     before do
       make_guess
     end
@@ -68,7 +68,7 @@ RSpec.describe Game, type: :model do
       let(:guess) { "P" }
 
       it "does not deduct a life" do
-        expect(game.lives_remaining).to eq 7
+        expect(game.lives_remaining).to eq game.max_lives
       end
     end
 
@@ -76,35 +76,36 @@ RSpec.describe Game, type: :model do
       let(:guess) { "X" }
 
       it "deducts one life" do
-        expect(game.lives_remaining).to eq 6
+        expect(game.lives_remaining).to eq game.max_lives - 1
       end
     end
 
     context "when player makes a duplicate guess" do
-      let(:guess) { "X" }
+      let(:guess) { "P" }
 
       before do
         2.times { make_guess }
       end
 
       it "does not deduct a life" do
-        expect(game.lives_remaining).to eq 6
+        expect(game.lives_remaining).to eq game.max_lives
       end
     end
   end
 
   describe "#letters_remaining" do
     let(:make_guess) { game.guesses.create!(guess: guess) }
+    let(:original_word_length) { game.word.length }
 
     before do
       make_guess
     end
 
     context "when player makes a correct guess" do
-      let(:guess) { "P" }
+      let(:guess) { "W" }
 
       it "deducts the correct amount of letters" do
-        expect(game.letters_remaining).to eq 7
+        expect(game.letters_remaining).to eq original_word_length - 1
       end
     end
 
@@ -112,16 +113,43 @@ RSpec.describe Game, type: :model do
       let(:guess) { "X" }
 
       it "does not change the number of letters remaining" do
-        expect{ :make_guess }.not_to change { game.letters_remaining }
+        expect(game.letters_remaining).to eq original_word_length
       end
     end
 
-    context "when a player makes a duplicate guess" do
-      let(:guess) { "W" }
+    context "when a player makes a correct duplicate guess" do
       let(:guess) { "W" }
 
-      it "deducts the correct amount of letters" do
-        expect(game.letters_remaining).to eq 8
+      it "reduces the letters remaining by only one" do
+        make_guess
+        expect(game.letters_remaining).to eq original_word_length - 1
+      end
+    end
+  end
+
+  describe "#clue" do
+    let(:make_guess) { game.guesses.create!(guess: guess) }
+
+    context "when no guesses have been made" do
+      it "does not change" do
+        expect(game.clue).to eq [nil] * 9
+      end
+    end
+
+    context "when a single correct guess is made" do
+      let(:guess) { "W" }
+
+      it "displays the correct guess in the clue" do
+        make_guess
+        expect(game.clue).to eq [nil, nil, "W", nil, nil, nil, nil, nil, nil]
+      end
+    end
+
+    context "when a single incorrect guess is made" do
+      let(:guess) { "X" }
+      it "does not display the guess in the clue" do
+        make_guess
+        expect(game.clue).to eq [nil]  * 9
       end
     end
   end
@@ -151,9 +179,9 @@ RSpec.describe Game, type: :model do
 
     context "when making a duplicate incorrect guess" do
       let(:guess) { "X" }
-      let(:guess) { "X" }
 
       it "only the original guess is added to the incorrect guesses list" do
+        make_guess
         expect(game.incorrect_guesses).to eq ["X"]
       end
     end
@@ -174,7 +202,7 @@ RSpec.describe Game, type: :model do
     context "when all letters have not yet been guessed" do
       guesses = ["P", "O", "W", "E", "R", "S"]
 
-      it "identifies that the game has been won" do
+      it "identifies that the game has been not won" do
         guesses.each { |g| make_guess.create(guess: g) }
         expect(game).to_not be_won
       end

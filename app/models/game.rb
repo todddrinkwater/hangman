@@ -34,9 +34,7 @@ class Game < ApplicationRecord
   end
 
   def clue
-    clue = word.chars.map { |letter| guesses_made.include?(letter) ? letter : "_" }
-
-    clue.join(" ")
+    clue = word.chars.map { |letter| guesses_made.include?(letter) ? letter : nil }
   end
 
   private

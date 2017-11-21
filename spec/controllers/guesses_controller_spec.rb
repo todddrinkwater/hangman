@@ -1,5 +1,3 @@
-# WRITE TESTS FOR INDEX, CREATE, NEW
-
 require 'rails_helper'
 
 RSpec.describe GuessesController, type: :controller do
@@ -30,6 +28,12 @@ RSpec.describe GuessesController, type: :controller do
         post :create, :params => params
 
         expect(response).to redirect_to(game_path(params[:game_id]))
+      end
+
+      it "creates a new guess" do
+        expect {
+          post :create, :params => params
+        }.to change { game.guesses.count }
       end
     end
 

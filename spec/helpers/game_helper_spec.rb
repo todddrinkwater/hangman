@@ -10,6 +10,13 @@ require 'rails_helper'
 #     end
 #   end
 # end
+
 RSpec.describe GameHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#show_clue" do
+    it "creates a string of the clue to display" do
+      clue = ["P", "O", nil, nil, nil, nil, nil, "O", "P"]
+
+      expect(show_clue(clue)).to eq "P O _ _ _ _ _ O P"
+    end
+  end
 end

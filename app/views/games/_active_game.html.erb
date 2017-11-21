@@ -1,6 +1,6 @@
 <p>
   <strong>Word:</strong>
-  <%= @game.clue %>
+  <%= show_clue(@game.clue) %>
 </p>
 
 <p>
@@ -15,8 +15,7 @@
 
 <%= form_with model: [ @game, @guess ], id: "guess", local: true do |f| %>
   <%= f.label 'Take a guess:' %>
-  
-  <div>
+
   <%= f.text_field :guess, id: 'guess_input' %>
 
   <% unless @guess.errors.empty? %>
@@ -29,7 +28,6 @@
     </ul>
   </div>
   <% end %>
-</div>
 
   <%= f.submit 'Make guess' %>
 <% end %>
