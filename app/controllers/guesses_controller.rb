@@ -6,8 +6,9 @@ class GuessesController < ApplicationController
 
   def create
     @game = Game.find(params[:game_id])
+    # byebug
     @guess = @game.guesses.new(guess_params)
-    @guess.guess.upcase!
+    @guess.value.upcase!
 
     if @guess.save
       redirect_to game_path(@game)
@@ -20,6 +21,6 @@ class GuessesController < ApplicationController
   private
 
   def guess_params
-    params.require(:guess).permit(:guess, :game_id)
+    params.require(:guess).permit(:value, :game_id)
   end
 end

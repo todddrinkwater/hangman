@@ -13,10 +13,10 @@
   <%= @game.incorrect_guesses.join(" ") %>
 </p>
 
-<%= form_with model: [ @game, @guess ], id: "guess", local: true do |f| %>
+<%= form_with model: [ @game, @guess ], id: "value", local: true do |f| %>
   <%= f.label 'Take a guess:' %>
 
-  <%= f.text_field :guess, id: 'guess_input' %>
+  <%= f.text_field :value, id: 'value_input' %>
 
   <% unless @guess.errors.empty? %>
   <div id="error_explanation">

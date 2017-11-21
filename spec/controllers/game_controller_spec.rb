@@ -33,7 +33,6 @@ RSpec.describe GamesController, type: :controller do
       context "with valid params" do
         let(:create_game) { post :create, :params => { :game => { :word => "powershop", :max_lives => 7 } } }
 
-
         it "redirects to the show path" do
           create_game
           id = Game.order(:id => :desc).first.id
@@ -43,6 +42,7 @@ RSpec.describe GamesController, type: :controller do
 
         it "returns a 302 status code" do
           create_game
+
           expect(response.status).to eq(302)
         end
 
@@ -69,6 +69,7 @@ RSpec.describe GamesController, type: :controller do
     context "player has created a new game" do
       before do
         game = Game.create(word: "powershop", max_lives: 7)
+
         get :show, :params => { :id => game.id }
       end
 

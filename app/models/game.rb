@@ -30,7 +30,7 @@ class Game < ApplicationRecord
   end
 
   def guesses_made
-    guesses.pluck(:guess)
+    guesses.pluck(:value)
   end
 
   def clue

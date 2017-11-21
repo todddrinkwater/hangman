@@ -16,10 +16,10 @@ RSpec.describe GuessesController, type: :controller do
 
   describe "POST #create" do
     let(:game) { Game.create!(word: "powershop", max_lives: 7) }
-    let(:guess) { "P" }
+    let(:value) { "P" }
     let(:params) {
-        { :game_id => game.id,
-          :guess => { :guess => guess }
+      { :game_id => game.id,
+          :guess => { :value => value }
         }
     }
 
