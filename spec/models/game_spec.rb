@@ -1,5 +1,4 @@
 require 'rails_helper'
-#TODO: Try to switch create's to new's and get it to pass.
 
 RSpec.describe Game, type: :model do
   subject(:game) { described_class.create(word: "powershop", max_lives: 7) }

@@ -26,7 +26,7 @@ Thursday 9 Nov
 * Fix: Create button that will post to a create action, then redirect from create to show. Show template will need to be created to replace index.html.erb.
 * Key learnings:
   * - Creating a hidden_field is form inputs is f.hidden_field(:game_id, value: params[:id]) Where the key is the first arg and the value is the second.
-  
+
 Friday 10 Nov
 * To review:
 * What are flash messages and how and they used with things like validation?
@@ -51,4 +51,5 @@ Wednesday 15 Nov
 * Review: Pluck
 
 Wednesday 22 Nov
+* There are seperate db's created for each test environment. If one DB is updated, rolled back etc, then you will need to do the same to test DB also to keep the data consistent.
 * RAILS_ENV=test rails db:rollback && rails db:migrate

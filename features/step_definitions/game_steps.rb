@@ -16,7 +16,7 @@ Then(/^I see the incorrect guesses display as empty$/) do
 end
 
 When(/^I submit a correct guess$/) do
-    fill_in 'guess[guess]', with: 'p'
+    fill_in 'guess[value]', with: 'p'
     click_on 'Make guess'
 end
 
@@ -34,7 +34,7 @@ Given(/^I make an incorrect guess$/) do
 end
 
 When(/^I submit an incorrect guess$/) do
-    fill_in 'guess[guess]', with: 'x'
+    fill_in 'guess[value]', with: 'x'
     click_on 'Make guess'
 end
 
@@ -47,20 +47,20 @@ Then(/^I see the guess added to the incorrect guesses list$/) do
 end
 
 When(/^I submit a duplicate guess$/) do
-  fill_in 'guess[guess]', with: 'x'
+  fill_in 'guess[value]', with: 'x'
   click_on 'Make guess'
-  fill_in 'guess[guess]', with: 'x'
+  fill_in 'guess[value]', with: 'x'
   click_on 'Make guess'
 end
 
 Then(/^I see an appropriate error message$/) do
-  expect(page).to have_content("Guess has already been taken")
+  expect(page).to have_content("Value has already been taken")
 end
 
 When(/^I submit the winning guess$/) do
   correct_letters = %w[p o w e r s h]
   correct_letters.each do |guess|
-    fill_in 'guess[guess]', with: guess
+    fill_in 'guess[value]', with: guess
     click_on 'Make guess'
   end
 end
@@ -76,7 +76,7 @@ end
 When(/^I submit the losing guess$/) do
   correct_letters = %w[q t y u i a d]
   correct_letters.each do |guess|
-    fill_in 'guess[guess]', with: guess
+    fill_in 'guess[value]', with: guess
     click_on 'Make guess'
   end
 end
