@@ -38,11 +38,12 @@ RSpec.describe GuessesController, type: :controller do
     end
 
     context "when player makes a invalid guess" do
-      let(:guess) { "&" }
+      let(:value) { "&" }
 
       it "redirects to the game#show template" do
         post :create, :params => params
-        expect(response).to redirect_to(game_path(params[:game_id]))
+
+        expect(response).to render_template('games/show')
       end
     end
   end
