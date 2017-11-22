@@ -51,5 +51,5 @@ Wednesday 15 Nov
 * Review: Pluck
 
 Wednesday 22 Nov
-* There are seperate db's created for each test environment. If one DB is updated, rolled back etc, then you will need to do the same to test DB also to keep the data consistent.
+* There are separate db's created for each test environment. If one DB is updated, rolled back etc, then you will need to do the same to test DB also to keep the data consistent.
 * RAILS_ENV=test rails db:rollback && rails db:migrate
