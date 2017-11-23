@@ -44,12 +44,9 @@ RSpec.describe Guess, type: :model do
     context "when the guess has already been made" do
       let(:guess) { "a" }
 
-      before do
-        make_guess
-      end
-
       it "is invalid" do
-        expect(game.guesses.new(value: "a")).to_not be_valid
+        make_guess
+        expect(game.guesses.create(value: "a")).to_not be_valid
       end
     end
   end
