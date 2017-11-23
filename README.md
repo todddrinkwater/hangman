@@ -56,3 +56,4 @@ Wednesday 22 Nov
 
 Thursday 23 Nov
 * Review Hooks
+* Duplication test issue: Added a save to the controller to prevent uniqueness validation fails. Suspect that while the Guess model would upcase before saving the validations to the DB, because the next guess would be validated before upcased. The two values would still be different cases to each other and therefore be saved in the database.

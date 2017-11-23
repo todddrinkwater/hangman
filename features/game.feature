@@ -26,8 +26,6 @@ Scenario: Player makes a correct guess
   Then I see the number of lives remaining is unchanged
 
 Scenario: Player makes an incorrect guess
-  #TODO: Remove duplication.
-  Given I make an incorrect guess
   When I submit an incorrect guess
   Then I see a single life is deducted
   Then I see the guess added to the incorrect guesses list
