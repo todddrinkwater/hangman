@@ -53,3 +53,6 @@ Wednesday 15 Nov
 Wednesday 22 Nov
 * There are separate db's created for each test environment. If one DB is updated, rolled back etc, then you will need to do the same to test DB also to keep the data consistent.
 * RAILS_ENV=test rails db:rollback && rails db:migrate
+
+Thursday 23 Nov
+* Review Hooks

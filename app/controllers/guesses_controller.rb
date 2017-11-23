@@ -1,6 +1,7 @@
 class GuessesController < ApplicationController
   def index
     @game = Game.find(params[:game_id])
+    
     redirect_to game_path(@game)
   end
 
@@ -22,3 +23,6 @@ class GuessesController < ApplicationController
     params.require(:guess).permit(:value, :game_id)
   end
 end
+
+#TODO: Find out why I need an index action here
+#TODO: Remove unneeded ivars

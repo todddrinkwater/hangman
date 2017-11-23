@@ -17,41 +17,39 @@ RSpec.describe Guess, type: :model do
       end
     end
 
-    context "when given invalid parameters" do
-      context "when given a number" do
-        let(:guess) { 7 }
+    context "when given a number" do
+      let(:guess) { 7 }
 
-        it "is invalid" do
-          expect(make_guess).to_not be_valid
-        end
+      it "is invalid" do
+        expect(make_guess).to_not be_valid
+      end
+    end
+
+    context "when given more than one letter" do
+      let(:guess) { "aa" }
+
+      it "is invalid" do
+        expect(make_guess).to_not be_valid
+      end
+    end
+
+    context "when the guess contains zero characters" do
+      let(:guess) { "" }
+
+      it "is invalid" do
+        expect(make_guess).to_not be_valid
+      end
+    end
+
+    context "when the guess has already been made" do
+      let(:guess) { "a" }
+
+      before do
+        make_guess
       end
 
-      context "when given more than one letter" do
-        let(:guess) { "aa" }
-
-        it "is invalid" do
-          expect(make_guess).to_not be_valid
-        end
-      end
-
-      context "when the guess contains zero characters" do
-        let(:guess) { "" }
-
-        it "is invalid" do
-          expect(make_guess).to_not be_valid
-        end
-      end
-
-      context "when the guess has already been made" do
-        let(:guess) { "a" }
-
-        before do
-          make_guess
-        end
-
-        it "is invalid" do
-          expect(game.guesses.new(value: "a")).to_not be_valid
-        end
+      it "is invalid" do
+        expect(game.guesses.new(value: "a")).to_not be_valid
       end
     end
   end

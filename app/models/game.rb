@@ -22,11 +22,11 @@ class Game < ApplicationRecord
   end
 
   def won?
-    letters_remaining < 1 && !lost?
+    letters_remaining <= 0 && !lost?
   end
 
   def lost?
-    lives_remaining < 1
+    lives_remaining <= 0
   end
 
   def guesses_made
@@ -34,7 +34,7 @@ class Game < ApplicationRecord
   end
 
   def clue
-    clue = word.chars.map { |letter| guesses_made.include?(letter) ? letter : nil }
+    word.chars.map { |letter| guesses_made.include?(letter) ? letter : nil }
   end
 
   private

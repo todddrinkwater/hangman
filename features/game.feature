@@ -12,7 +12,9 @@ Feature: Game
 
 Background:
   Given the player is on the game page
+  #TODO: Rename to have more active voice. Have it better describe an action taken.
 
+#TODO: Scenario needs to better describe following lines after it.
 Scenario: Player starts a new game
   Then I am shown the clue
   Then I see the number of lives I have left
@@ -24,6 +26,7 @@ Scenario: Player makes a correct guess
   Then I see the number of lives remaining is unchanged
 
 Scenario: Player makes an incorrect guess
+  #TODO: Remove duplication.
   Given I make an incorrect guess
   When I submit an incorrect guess
   Then I see a single life is deducted

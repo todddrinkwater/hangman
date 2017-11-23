@@ -1,64 +1,65 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-  subject(:game) { described_class.create(word: "powershop", max_lives: 7) }
+  subject(:game) { described_class.create(word: word, max_lives: max_lives) }
 
-  context "validations" do
-    subject(:game) { described_class.new(word: word, max_lives: max_lives) }
+  let(:word) { "powershop" }
+  let(:max_lives) { 7 }
 
-    let(:word) { "powershop" }
-    let(:max_lives) { 7 }
+  describe "validations" do
+    context "with valid parameters" do
 
-    it "is valid" do
-      expect(game).to be_valid
+      it "is valid" do
+        expect(game).to be_valid
+      end
     end
 
-    context "invalid parameters" do
-      context "without a word" do
-        let(:word) { nil }
+    context "without a word" do
+      let(:word) { nil }
 
-        it "is invalid" do
-          expect(game).to_not be_valid
-        end
+      it "is invalid" do
+        expect(game).to_not be_valid
       end
+    end
 
-      context "when the word contains non-alphabetical characters" do
-        let(:word) { "p0wershop" }
+    context "when the word contains non-alphabetical characters" do
+      let(:word) { "p0wershop" }
 
-        it "is invalid" do
-          expect(game).to_not be_valid
-        end
+      it "is invalid" do
+        expect(game).to_not be_valid
       end
+    end
 
-      context "when word contains no characters" do
-        let(:word) { "" }
+    context "when word contains no characters" do
+      let(:word) { "" }
 
-        it "is invalid" do
-          expect(game).to_not be_valid
-        end
+      it "is invalid" do
+        expect(game).to_not be_valid
       end
+    end
 
-      context "when max lives is not provided" do
-        let(:max_lives) { nil }
+    context "when max lives is not provided" do
+      let(:max_lives) { nil }
 
-        it "is invalid" do
-          expect(game).to_not be_valid
-        end
+      it "is invalid" do
+        expect(game).to_not be_valid
       end
+    end
 
-      context "when max lives contains non_numeric characters" do
-        let(:max_lives) { "a" }
+    context "when max lives contains non_numeric characters" do
+      let(:max_lives) { "a" }
 
-        it "is invalid" do
-          expect(game).to_not be_valid
-        end
+      it "is invalid" do
+        expect(game).to_not be_valid
       end
     end
   end
 
   describe "#lives_remaining" do
-    let(:make_guess) { game.guesses.create!(value: guess) }
-    
+    def make_guess
+      game.guesses.create(value: guess)
+    end
+
     before do
       make_guess
     end
@@ -89,11 +90,15 @@ RSpec.describe Game, type: :model do
       it "does not deduct a life" do
         expect(game.lives_remaining).to eq game.max_lives
       end
+      
+      it "has made has made one guess" do
+        expect(game.guesses.count).to eq 1
+      end
     end
   end
 
   describe "#letters_remaining" do
-    let(:make_guess) { game.guesses.create!(value: guess) }
+    let(:make_guess) { game.guesses.create!(value: guess) } #TODO: Only evaluated once, turn into method
     let(:original_word_length) { game.word.length }
 
     before do
@@ -115,15 +120,6 @@ RSpec.describe Game, type: :model do
         expect(game.letters_remaining).to eq original_word_length
       end
     end
-
-    context "when a player makes a correct duplicate guess" do
-      let(:guess) { "W" }
-
-      it "reduces the letters remaining by only one" do
-        make_guess
-        expect(game.letters_remaining).to eq original_word_length - 1
-      end
-    end
   end
 
   describe "#clue" do
@@ -140,12 +136,14 @@ RSpec.describe Game, type: :model do
 
       it "displays the correct guess in the clue" do
         make_guess
+
         expect(game.clue).to eq [nil, nil, "W", nil, nil, nil, nil, nil, nil]
       end
     end
 
     context "when a single incorrect guess is made" do
       let(:guess) { "X" }
+
       it "does not display the guess in the clue" do
         make_guess
         expect(game.clue).to eq [nil]  * 9
@@ -175,25 +173,20 @@ RSpec.describe Game, type: :model do
         expect(game.incorrect_guesses).to eq []
       end
     end
-
-    context "when making a duplicate incorrect guess" do
-      let(:guess) { "X" }
-
-      it "only the original guess is added to the incorrect guesses list" do
-        make_guess
-        expect(game.incorrect_guesses).to eq ["X"]
-      end
-    end
   end
 
   describe "#won?" do
     let(:make_guess) { game.guesses }
 
+    def make_correct_guesses(guesses)
+      guesses.each { |g| make_guess.create(value: g) }
+    end
+
     context "when the user makes a winning guess" do
       guesses = ["P", "O", "W", "E", "R", "S", "H"]
 
       it "identifies that the game has been won" do
-        guesses.each { |g| make_guess.create(value: g) }
+        make_correct_guesses(guesses)
         expect(game).to be_won
       end
     end
@@ -202,7 +195,7 @@ RSpec.describe Game, type: :model do
       guesses = ["P", "O", "W", "E", "R", "S"]
 
       it "identifies that the game has been not won" do
-        guesses.each { |g| make_guess.create(value: g) }
+        make_correct_guesses(guesses)
         expect(game).to_not be_won
       end
     end
